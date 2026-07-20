@@ -1,0 +1,86 @@
+/* Hero Background */
+.contact-hero-bg {
+  position: relative;
+  background-color: var(--background);
+  background-image: radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.08) 0px, transparent 50%),
+                    radial-gradient(at 100% 100%, rgba(124, 58, 237, 0.08) 0px, transparent 50%);
+}
+
+.contact-shape-blob {
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  animation: float 10s infinite ease-in-out alternate;
+}
+
+/* Glass Card */
+.contact-glass-card {
+  background: var(--cp-glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--cp-glass-border);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.contact-glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+/* Form Styles */
+.contact-form-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--cp-glass-border);
+  border-radius: 0.75rem;
+  padding: 0.875rem 1rem;
+  color: var(--foreground);
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.contact-form-input:focus {
+  outline: none;
+  border-color: var(--cp-primary);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  background: #ffffff;
+}
+
+.contact-form-input.error {
+  border-color: #ef4444;
+}
+
+.contact-form-input.error:focus {
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+}
+
+/* Hide scrollbar for categories */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) scale(1); }
+  100% { transform: translateY(20px) scale(1.05); }
+}
+
+/* Toast Animation */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

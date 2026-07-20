@@ -1,0 +1,70 @@
+/* Hero Background */
+.about-hero-bg {
+  position: relative;
+  background-color: var(--background);
+  background-image: radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.08) 0px, transparent 50%),
+                    radial-gradient(at 100% 100%, rgba(124, 58, 237, 0.08) 0px, transparent 50%);
+}
+
+.about-shape-blob {
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  animation: float 10s infinite ease-in-out alternate;
+}
+
+/* Glass Card */
+.about-glass-card {
+  background: var(--cp-glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--cp-glass-border);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.about-glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+/* Process Flow Connectors */
+.process-connector {
+  position: absolute;
+  top: 2rem;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cp-primary) 0%, transparent 100%);
+  opacity: 0.3;
+  z-index: -1;
+}
+
+@media (max-width: 1024px) {
+  .process-connector {
+    display: none;
+  }
+}
+
+/* Tech Stack Logo Grids */
+.tech-logo-wrapper {
+  transition: all 0.3s ease;
+}
+
+.tech-logo-wrapper:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) scale(1); }
+  100% { transform: translateY(20px) scale(1.05); }
+}
+
+/* Hide scrollbar for tabs */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

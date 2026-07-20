@@ -11,7 +11,7 @@ const navigation = {
   ],
   resources: [
     { name: "Blog", href: "/blog" },
-    { name: "Resume Templates", href: "/templates" },
+    { name: "Resume Templates", href: "/resume-templates" },
     { name: "Interview Guides", href: "/guides" },
     { name: "Help Center", href: "/help" },
     { name: "Community", href: "/community" },

@@ -1,11 +1,15 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, Rocket, User, LogOut, Settings, FileText, LayoutDashboard } from "lucide-react";
+import { Menu, Rocket } from "lucide-react";
 import NavLinks, { NavLink } from "./NavLinks";
 import MobileMenu from "./MobileMenu";
 import { useAuth } from "../../lib/useAuth";
+import ProfileDropdown from "../ui/ProfileDropdown";
+import NotificationDropdown from "../ui/NotificationDropdown";
+import HelpDropdown from "../ui/HelpDropdown";
+import GlobalSearchModal from "../ui/GlobalSearchModal";
 
 const publicLinks: NavLink[] = [
   { name: "Home", href: "/" },
@@ -16,20 +20,18 @@ const publicLinks: NavLink[] = [
   { name: "Contact", href: "/contact" },
 ];
 
-const loggedInLinks: NavLink[] = [
-  { name: "Dashboard", href: "/dashboard" },
-  { name: "My Resumes", href: "/dashboard/my-resumes" },
-  { name: "AI Tools", href: "/ai-tools" },
-  { name: "Profile", href: "/dashboard/profile" },
+const authenticatedPublicLinks: NavLink[] = [
+  { name: "Home", href: "/" },
+  { name: "Explore", href: "/explore" },
+  { name: "Resume Templates", href: "/templates" },
+  { name: "Blog", href: "/blog" },
 ];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const profileRef = useRef<HTMLDivElement>(null);
   
-  const { isLoggedIn, logout } = useAuth();
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,19 +42,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close profile dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
-        setIsProfileOpen(false);
-      }
-    };
-    
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const links = isLoggedIn ? loggedInLinks : publicLinks;
+  const links = isLoggedIn ? authenticatedPublicLinks : publicLinks;
 
   return (
     <>
@@ -66,12 +56,12 @@ export default function Navbar() {
           {/* Logo Section */}
           <Link 
             href="/" 
-            className="flex items-center gap-2 transition-transform hover:scale-105 active:scale-95"
+            className="flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 shrink-0"
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cp-primary/10 text-cp-primary">
               <Rocket size={24} className="text-cp-primary" />
             </div>
-            <span className="text-xl font-bold tracking-tight text-zinc-900 dark:text-white">
+            <span className="text-xl font-bold tracking-tight text-zinc-900 dark:text-white hidden sm:block">
               CareerPilot <span className="text-cp-primary">AI</span>
             </span>
           </Link>
@@ -81,69 +71,34 @@ export default function Navbar() {
             <NavLinks links={links} />
           </div>
 
-          {/* Desktop Auth Buttons Right */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* Desktop Auth Buttons / Actions Right */}
+          <div className="hidden md:flex items-center gap-3">
             {isLoggedIn ? (
-              <div className="relative" ref={profileRef}>
-                <button
-                  onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className="flex items-center justify-center w-10 h-10 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 hover:text-cp-primary transition-all border border-zinc-200 dark:border-zinc-700"
-                >
-                  <User size={20} />
-                </button>
-                
-                {/* Profile Dropdown */}
-                {isProfileOpen && (
-                  <div className="absolute right-0 mt-2 w-56 rounded-xl bg-white dark:bg-zinc-900 shadow-xl border border-zinc-200 dark:border-zinc-800 py-2 animate-fade-in origin-top-right z-50">
-                    <div className="px-4 py-2 border-b border-zinc-100 dark:border-zinc-800 mb-1">
-                      <p className="text-sm font-semibold text-zinc-900 dark:text-white">My Account</p>
-                    </div>
-                    
-                    <Link href="/dashboard" onClick={() => setIsProfileOpen(false)} className="flex items-center gap-3 px-4 py-2 text-sm text-zinc-600 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-white transition-colors">
-                      <LayoutDashboard size={16} />
-                      Dashboard
-                    </Link>
-                    <Link href="/my-resumes" onClick={() => setIsProfileOpen(false)} className="flex items-center gap-3 px-4 py-2 text-sm text-zinc-600 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-white transition-colors">
-                      <FileText size={16} />
-                      My Resumes
-                    </Link>
-                    <Link href="/settings" onClick={() => setIsProfileOpen(false)} className="flex items-center gap-3 px-4 py-2 text-sm text-zinc-600 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-white transition-colors">
-                      <Settings size={16} />
-                      Settings
-                    </Link>
-                    
-                    <div className="h-px bg-zinc-100 dark:bg-zinc-800 my-1"></div>
-                    
-                    <button 
-                      onClick={() => {
-                        setIsProfileOpen(false);
-                        logout();
-                      }}
-                      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
-                    >
-                      <LogOut size={16} />
-                      Logout
-                    </button>
-                  </div>
-                )}
-              </div>
+              <>
+                <GlobalSearchModal />
+                <div className="flex items-center gap-2 border-l border-zinc-200 dark:border-zinc-800 pl-3 ml-1">
+                  <NotificationDropdown />
+                  <HelpDropdown />
+                  <ProfileDropdown />
+                </div>
+              </>
             ) : (
               <>
                 <Link
                   href="/login"
-                  className="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white transition-colors"
+                  className="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white transition-colors px-3"
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
-                  className="rounded-full border border-zinc-200 dark:border-zinc-700 px-5 py-2 text-sm font-medium text-zinc-900 dark:text-white transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800"
+                  className="text-sm font-medium text-zinc-900 dark:text-white hover:text-cp-primary dark:hover:text-cp-primary transition-colors px-3"
                 >
                   Register
                 </Link>
                 <Link
-                  href="/get-started"
-                  className="btn-gradient rounded-full px-6 py-2 text-sm font-semibold"
+                  href="/register"
+                  className="btn-gradient rounded-full px-6 py-2 text-sm font-semibold shadow-md shadow-cp-primary/20"
                 >
                   Get Started
                 </Link>
@@ -152,14 +107,17 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setIsMobileOpen(true)}
-            className="md:hidden p-2 text-zinc-600 dark:text-zinc-300 hover:text-cp-primary transition-colors focus:outline-none"
-            aria-expanded={isMobileOpen}
-            aria-label="Open main menu"
-          >
-            <Menu size={24} />
-          </button>
+          <div className="md:hidden flex items-center gap-3">
+            {isLoggedIn && <GlobalSearchModal />}
+            <button
+              onClick={() => setIsMobileOpen(true)}
+              className="p-2 text-zinc-600 dark:text-zinc-300 hover:text-cp-primary transition-colors focus:outline-none bg-zinc-100 dark:bg-zinc-800 rounded-lg"
+              aria-expanded={isMobileOpen}
+              aria-label="Open main menu"
+            >
+              <Menu size={24} />
+            </button>
+          </div>
         </div>
       </header>
 

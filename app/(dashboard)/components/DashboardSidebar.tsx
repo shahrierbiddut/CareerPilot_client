@@ -45,21 +45,21 @@ export default function DashboardSidebar({
       links: [
         { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
         { name: "My Resume", href: "/dashboard/my-resumes", icon: FileText },
-        { name: "Analytics", href: "/analytics", icon: BarChart2 },
       ]
     },
     {
       title: "AI Tools",
       links: [
-        { name: "Career Roadmap", href: "/career-roadmap", icon: Map },
-        { name: "Interview Coach", href: "/interview-coach", icon: MessageSquare },
-        { name: "Resume Analyzer", href: "/resume-analyzer", icon: FileSearch },
-        { name: "Career Assistant", href: "/career-assistant", icon: Bot },
+        { name: "Resume Analyzer", href: "/dashboard/ai/resume-analyzer", icon: FileSearch },
+        { name: "Interview Coach", href: "/dashboard/ai/interview-coach", icon: MessageSquare },
+        { name: "Career Analysis", href: "/dashboard/ai/career-analysis", icon: Bot },
+        { name: "Career Roadmap", href: "/dashboard/ai/career-roadmap", icon: Map },
       ]
     },
     {
       title: "Account",
       links: [
+        { name: "Analytics", href: "/analytics", icon: BarChart2 },
         { name: "Profile", href: "/dashboard/profile", icon: User },
         { name: "Settings", href: "/dashboard/settings", icon: Settings },
       ]
@@ -69,7 +69,6 @@ export default function DashboardSidebar({
   const bottomLinks = [
     { name: "Support", href: "/support", icon: LifeBuoy },
     { name: "Documentation", href: "/docs", icon: BookOpen },
-    { name: "Features", href: "/features", icon: Zap },
     { 
       name: "Logout", 
       href: "#", 

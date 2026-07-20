@@ -29,6 +29,7 @@ export default function ExplorePageClient() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [resourcesData, setResourcesData] = useState<FullResourceData[]>([]);
   
   const ITEMS_PER_PAGE = 8;
@@ -40,8 +41,9 @@ export default function ExplorePageClient() {
         setIsLoading(true);
         const data = await getResources();
         setResourcesData(data);
-      } catch (error) {
+      } catch (error: any) {
         console.error("Failed to fetch resources:", error);
+        setErrorMsg(error?.message || String(error));
       } finally {
         setIsLoading(false);
       }
@@ -153,7 +155,7 @@ export default function ExplorePageClient() {
     });
 
     return result;
-  }, [searchQuery, filters, sortOrder]);
+  }, [searchQuery, filters, sortOrder, resourcesData]);
 
   // Pagination logic
   const totalItems = filteredAndSortedResources.length;
@@ -283,6 +285,11 @@ export default function ExplorePageClient() {
             )}
 
             {/* Grid Area */}
+            {errorMsg && (
+              <div className="bg-red-100 text-red-600 p-4 rounded-xl mb-4 font-bold border border-red-200 shadow-sm">
+                DEBUG ERROR: {errorMsg}
+              </div>
+            )}
             {currentResources.length > 0 ? (
               <div className={
                 viewMode === "grid" 

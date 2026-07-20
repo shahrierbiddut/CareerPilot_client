@@ -14,7 +14,7 @@ import GlobalSearchModal from "../ui/GlobalSearchModal";
 const publicLinks: NavLink[] = [
   { name: "Home", href: "/" },
   { name: "Explore", href: "/explore" },
-  { name: "Resume Templates", href: "/templates" },
+  { name: "Resume Templates", href: "/resume-templates" },
   { name: "Blog", href: "/blog" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
@@ -23,8 +23,10 @@ const publicLinks: NavLink[] = [
 const authenticatedPublicLinks: NavLink[] = [
   { name: "Home", href: "/" },
   { name: "Explore", href: "/explore" },
-  { name: "Resume Templates", href: "/templates" },
+  { name: "Resume Templates", href: "/resume-templates" },
   { name: "Blog", href: "/blog" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {

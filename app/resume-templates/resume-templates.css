@@ -1,0 +1,143 @@
+/* Background styling for the hero section */
+.template-hero-bg {
+  position: relative;
+  background-color: var(--background);
+  background-image: radial-gradient(at 100% 0%, rgba(37, 99, 235, 0.1) 0px, transparent 50%),
+                    radial-gradient(at 0% 100%, rgba(124, 58, 237, 0.1) 0px, transparent 50%);
+}
+
+.shape-blob {
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  animation: float 10s infinite ease-in-out alternate;
+}
+
+/* Category pills scrollbar hiding */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Fake Document Preview (Template Placeholder) */
+.template-preview {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Base structural lines for the fake document */
+.fake-line {
+  background: #f1f5f9;
+  border-radius: 2px;
+  margin-bottom: 8px;
+}
+
+.fake-header {
+  height: 25%;
+  width: 100%;
+  padding: 15% 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fake-body {
+  flex: 1;
+  padding: 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fake-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  margin-bottom: 8px;
+}
+
+/* Glass card styling for template items */
+.template-card {
+  background: var(--cp-glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--cp-glass-border);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+}
+
+.template-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.1);
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+.template-card .preview-container {
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.template-card:hover .preview-container {
+  transform: scale(1.03);
+}
+
+
+/* Premium Features Grid */
+.premium-feature-card {
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  background: var(--background);
+}
+
+.premium-feature-card:hover {
+  border-color: var(--cp-primary);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Timeline/How it works */
+.timeline-item {
+  position: relative;
+}
+
+.timeline-connector {
+  position: absolute;
+  top: 24px;
+  left: 50px;
+  right: -50%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cp-primary) 0%, rgba(37,99,235,0.1) 100%);
+  z-index: 0;
+}
+
+@media (max-width: 1024px) {
+  .timeline-connector {
+    display: none;
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) scale(1); }
+  100% { transform: translateY(20px) scale(1.05); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up-delay-1 { animation: slide-up 0.8s ease forwards 0.1s; opacity: 0; }
+.animate-slide-up-delay-2 { animation: slide-up 0.8s ease forwards 0.2s; opacity: 0; }
+.animate-slide-up-delay-3 { animation: slide-up 0.8s ease forwards 0.3s; opacity: 0; }
